@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Student Management System</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='src/style.css'>
     <script src='src/main.js'></script>
     <style>
         h1 {
@@ -18,11 +19,39 @@
 
             font: small-caps bold 24px/1 sans-serif;
         }
+
+        .clickable-list {
+            color: red;
+        }
     </style>
+    <script src="src/main.js">
+
+    </script>
+
+    <script>
+        const is_login = isLogin();
+        console.log(is_login);
+    </script>
 </head>
+
 <body>
     <h1>Student Management System</h1>
 
     <!-- Login Code Should be Written Here -->
+    ---
+
+    <h2>Navigation List</h2>
+        <ul class="nav-container">
+        <li class="nav-item"><a href="login.html">Login</a></li>
+        <li class="nav-item"><a href="logout.html">Logout</a></li>
+        <li class="nav-item"><a href="attendance.html">Attendance</a></li>
+        <li class="nav-item"><a href="README.md">README</a></li>
+        <li class="nav-item"><a href="academic.html">Academic</a></li>
+    </ul>
+
 </body>
+
+</html>
+</body>
+
 </html>
