@@ -1,5 +1,5 @@
 function isLogin() {
-    const data = localStorage.getItem("username");
+    const data = localStorage.getItem("userid");
     if (data != null) {
         return true;
     }

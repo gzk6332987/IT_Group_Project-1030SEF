@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="src/style.css">
     <script>
         setTimeout(() => {
-            window.location.href = "login.html"; 
+            localStorage.setItem("userid", null);
+            window.location.href = "login.html";
         }, 3000);
         
     </script>
 </head>
 <body>
-    You will logout in 3 seconds
-    
+    You will logout in 3 seconds.
 </body>
 </html>
 

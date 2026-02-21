@@ -28,10 +28,7 @@
 
     </script>
 
-    <script>
-        const is_login = isLogin();
-        console.log(is_login);
-    </script>
+ 
 </head>
 
 <body>
@@ -49,9 +46,26 @@
         <li class="nav-item"><a href="academic.html">Academic</a></li>
     </ul>
 
+    <!-- Used to show login info  -->
+    <div>
+        <span>Login State: </span>
+        <span id="login-detail">NOT LOADED</span>
+    </div>
+
 </body>
 
 </html>
 </body>
+
+<script>
+    const is_login = isLogin();
+    console.log(is_login);
+
+    if (is_login === false) {
+        document.getElementById("login-detail").innerText = "logout";
+    } else {
+        document.getElementById("login-detail").innerText = "Login as " + localStorage.getItem("userid") + ".";
+    }
+</script>
 
 </html>

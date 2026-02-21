@@ -5,12 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="src/style.css">
+
+    <script>
+        function handleLogin() {
+            // TODO Compare userid and password to database / consistent list in JavaScript
+
+            // prevent auto refresh after submit the form.
+            event.preventDefault();
+            
+            // get user input
+            const userid = document.getElementById('student-id').value;
+            const password = document.getElementById('password').value;
+
+            if (!userid || !password) {
+                alert("Illegal username or password!");
+                return;
+            }
+
+            localStorage.setItem("username", userid);
+            localStorage.setItem("userid", userid);
+            
+            // Login success, jump to index page
+            console.log("Login successfully as " + userid);
+            window.location.href = "index.html";
+        }
+    </script>
 </head>
 <body>
     <h1>Login</h1>
-    <form action="" method="POST">
+    <form name="login-form" action="" method="POST" onsubmit="handleLogin(event)">
         <label for="student-id">Student ID</label>
-        <input type="text" id="Student ID" placeholder="Student ID" id="student-id" name="student_id">
+        <input type="text" placeholder="Student ID" id="student-id" name="student_id">
         <label for="student-id">Student ID</label>
         <input type="password" id="password" placeholder="Password" id="password" name="password">
         <button type="submit">Login</submit>
