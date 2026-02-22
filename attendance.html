@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Record</title>
     <link rel="stylesheet" href="src/style.css">
 </head>
+
 <body>
-    
+    <h1>Attendance Record</h1>
+    <!-- show current info -->
+    <div>Current user ID: <span id="user-id"> <span style="color: red">you do not login!</span> <a href="login.html">Click me to login</a></span></div>
+    <div>Current time: <span id="current-time">WAIT FOR JavaScript Loaded...</span></div>
+    <div>Current IP: <span id="user-ip-display">WAIT FOR JavaScript Loaded...</span></div>
+
+    <div>
+        <input type="button" value="Back to index" onclick="window.location.href='index.html'">
+    </div>
 </body>
+
+<head>
+    <script src="src/main.js"></script>
+
+    <script>
+        (async () => {
+            // 1. Get IP using the new CORS-friendly function
+            const user_ip = await getIP();
+            console.log("Your IP is:", user_ip);
+
+            // 2. Update UI
+            const ipElement = document.getElementById("user-ip-display");
+            if (ipElement) {
+                ipElement.innerText = user_ip;
+            }
+
+            // 3. Update Time
+            document.getElementById("current-time").innerText = getCurrentFormattedTime();
+
+            let userid = getUserId();
+            if (!(userid === null)) {
+                document.getElementById("user-id").innerHTML = `<span style='color: green;'>${userid}</span>`;
+            }
+        })();
+
+    </script>
+</head>
+
 </html>
-
-

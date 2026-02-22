@@ -1,71 +1,121 @@
 <!DOCTYPE html>
-
-
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Student Management System</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='src/style.css'>
+    
+    <!-- External Logic Script -->
     <script src='src/main.js'></script>
+
     <style>
+        /* Modern reset and centering */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            padding: 20px; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background-color: #f4f7f6;
+        }
+        
         h1 {
-            box-sizing: border-box;
             text-align: center;
-            width: 100%;
-            padding: 1em;
-            border-radius: 10% 5%;
-            border: 3px solid black;
-
-            font: small-caps bold 24px/1 sans-serif;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 3px solid #333;
+            background: #ffffff;
+            font: small-caps bold 28px sans-serif;
+            box-shadow: 6px 6px 0px #333;
+            margin-bottom: 2rem;
         }
 
-        .clickable-list {
-            color: red;
+        /* Horizontal Navigation Styling */
+        .nav-container {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2rem 0;
         }
+
+        .nav-item a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: transform 0.1s, background 0.3s;
+        }
+
+        .nav-item a:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        /* Login Status Indicator */
+        .status-box {
+            margin-top: 3rem;
+            padding: 1.2rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #login-detail { 
+            font-weight: bold; 
+            color: #007bff; 
+        }
+
+        h2 { border-bottom: 2px solid #333; display: inline-block; padding-bottom: 5px; }
     </style>
-    <script src="src/main.js">
-
-    </script>
-
- 
 </head>
 
 <body>
     <h1>Student Management System</h1>
 
-    <!-- Login Code Should be Written Here -->
-    ---
-
-    <h2>Navigation List</h2>
+    <section>
+        <h2 style="display: block; text-align: center;">Navigation Menu</h2>
         <ul class="nav-container">
-        <li class="nav-item"><a href="login.html">Login</a></li>
-        <li class="nav-item"><a href="logout.html">Logout</a></li>
-        <li class="nav-item"><a href="attendance.html">Attendance</a></li>
-        <li class="nav-item"><a href="README.md">README</a></li>
-        <li class="nav-item"><a href="academic.html">Academic</a></li>
-    </ul>
+            <li class="nav-item"><a href="login.html">Login</a></li>
+            <li class="nav-item"><a href="logout.html">Logout</a></li>
+            <li class="nav-item"><a href="attendance.html">Attendance</a></li>
+            <li class="nav-item"><a href="academic.html">Academic</a></li>
+            <li class="nav-item"><a href="README.md">README</a></li>
+        </ul>
+    </section>
 
-    <!-- Used to show login info  -->
-    <div>
-        <span>Login State: </span>
-        <span id="login-detail">NOT LOADED</span>
+    <!-- Display area for user authentication state -->
+    <div class="status-box">
+        <span>System Status: </span>
+        <span id="login-detail">Initializing...</span>
     </div>
 
+    <script>
+        /**
+         * Authentication Check Logic
+         * Executed after DOM is parsed to ensure 'login-detail' exists.
+         */
+        const is_login = isLogin(); // Function defined in src/main.js
+        const statusElement = document.getElementById("login-detail");
+
+        if (is_login === false || is_login === null) {
+            // User is not authenticated
+            statusElement.innerText = "Guest (Logged Out)";
+            statusElement.style.color = "#dc3545"; // Red for logged out
+        } else {
+            // User is authenticated
+            const userId = localStorage.getItem("userid") || "User";
+            statusElement.innerText = "Logged in as " + userId + ".";
+            statusElement.style.color = "#28a745"; // Green for logged in
+        }
+    </script>
 </body>
-
-</html>
-</body>
-
-<script>
-    const is_login = isLogin();
-    console.log(is_login);
-
-    if (is_login === false) {
-        document.getElementById("login-detail").innerText = "logout";
-    } else {
-        document.getElementById("login-detail").innerText = "Login as " + localStorage.getItem("userid") + ".";
-    }
-</script>
-
 </html>

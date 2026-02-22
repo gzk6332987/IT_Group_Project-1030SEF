@@ -3,48 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Student Management System</title>
     <link rel="stylesheet" href="src/style.css">
 
-    <script>
-        function handleLogin() {
-            // TODO Compare userid and password to database / consistent list in JavaScript
+    <style>
+        /* Modern Login Card Styling */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-            // prevent auto refresh after submit the form.
+        h1 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-variant: small-caps;
+        }
+
+        #login-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .back-link {
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <script>
+        /**
+         * Handle Login Form Submission
+         * @param {Event} event - The form submission event
+         */
+        function handleLogin(event) {
+            // Prevent the browser from reloading the page
             event.preventDefault();
             
-            // get user input
+            // Extract values using .value
             const userid = document.getElementById('student-id').value;
             const password = document.getElementById('password').value;
 
+            // Simple validation
             if (!userid || !password) {
-                alert("Illegal username or password!");
+                alert("Invalid Student ID or Password!");
                 return;
             }
 
+            // TODO: Implement actual authentication against a database or list
+            
+            // Store user info in LocalStorage for session persistence
             localStorage.setItem("username", userid);
             localStorage.setItem("userid", userid);
             
-            // Login success, jump to index page
             console.log("Login successfully as " + userid);
+
+            // Redirect to the main dashboard
             window.location.href = "index.html";
         }
     </script>
 </head>
 <body>
-    <h1>Login</h1>
-    <form name="login-form" action="" method="POST" onsubmit="handleLogin(event)">
+    <h1>Student Portal</h1>
+
+    <!-- Login form with event listener -->
+    <form id="login-form" onsubmit="handleLogin(event)">
         <label for="student-id">Student ID</label>
-        <input type="text" placeholder="Student ID" id="student-id" name="student_id">
-        <label for="student-id">Student ID</label>
-        <input type="password" id="password" placeholder="Password" id="password" name="password">
-        <button type="submit">Login</submit>
+        <input type="text" placeholder="Enter ID" id="student-id" name="student_id" required>
+        
+        <label for="password">Password</label>
+        <input type="password" placeholder="Enter Password" id="password" name="password" required>
+        
+        <button type="submit">Login to System</button>
     </form>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
 </body>
 </html>
-
-
-
-
-
-
