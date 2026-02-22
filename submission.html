@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Submission System</title>
+    <script src="src/main.js"></script>
+    <style>
+
+    </style>
+    <style>
+        /* @import url("src/style.css"); */
+        :root {
+            --primary: #787878;
+            --primary-hover: #9df181;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+            --overlay: rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .user-card {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 16px;
+            background: var(--primary);
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 16px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        li:hover {
+            border-color: var(--primary-hover);
+            background: #fdfdfd;
+            transform: translateX(5px);
+        }
+
+        /* --- 新增 Modal 彈窗樣式 --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            resize: none;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-cancel:hover {
+            background: #cbd5e1;
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Homework Portal</h1>
+
+        <div id="user-section" class="user-card hidden">
+            <p><strong>User:</strong> <span id="display-userid"></span></p>
+            <p><strong>IP:</strong> <span id="display-ip">Detecting...</span></p>
+            <p><strong>Time:</strong> <span id="display-time" style="font-size: 0.8rem;"></span></p>
+        </div>
+
+        <div class="section-title">Select Task to Submit</div>
+        <ul id="homework-list">
+            <!-- TODO this is a mock list -->
+            <li onclick="openModal('Database System Project')">Database System Project</li>
+            <li onclick="openModal('Algorithm Analysis Report')">Algorithm Analysis Report</li>
+            <li onclick="openModal('Web Development Lab 5')">Web Development Lab 5</li>
+        </ul>
+
+        <div>
+            <span style="font-size: x-small;"><a href="index.html">back to index</a></span>
+        </div>
+    </div>
+
+    <!-- --- 新增 Modal 結構 --- -->
+    <div id="modal-wrapper" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div id="modal-task-name" class="modal-header">Task Name</div>
+
+            <label style="font-size: 0.8rem; color: var(--text-sub);">Your Comments:</label>
+            <textarea id="submit-text" placeholder="Write something about your submission..."></textarea>
+
+            <label style="font-size: 0.8rem; color: var(--text-sub);">Attachment:</label>
+            <input type="file" id="modal-file" />
+
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-submit" onclick="handleModalSubmit()">Submit Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /** @type {import('./src/main.js')} */
+        let currentTask = "";
+
+        async function initPage() {
+            if (isLogin()) {
+                document.getElementById('user-section').classList.remove('hidden');
+                document.getElementById('display-userid').innerText = getUserId();
+                document.getElementById('display-time').innerText = getCurrentFormattedTime();
+                const ip = await getIP();
+                document.getElementById('display-ip').innerText = ip;
+            }
+        }
+
+        // --- Modal pop up window ---
+        function openModal(taskName) {
+            if (!isLogin()) {
+                alert("Please login first!");
+                return;
+            }
+            currentTask = taskName;
+            document.getElementById('modal-task-name').innerText = taskName;
+            document.getElementById('modal-wrapper').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-wrapper').classList.add('hidden');
+            // clear content
+            document.getElementById('submit-text').value = "";
+            document.getElementById('modal-file').value = "";
+        }
+
+        function handleModalSubmit() {
+            const text = document.getElementById('submit-text').value;
+            const file = document.getElementById('modal-file').files[0];
+
+            if (!file && !text) {
+                alert("Please provide at least a comment or a file.");
+                return;
+            }
+
+            alert(`Successfully Submitted!\nTask: ${currentTask}\nComment: ${text}\nFile: ${file ? file.name : 'None'}`);
+            closeModal();
+        }
+
+        // 點擊遮罩層外部關閉彈窗
+        window.onclick = function (event) {
+            const modal = document.getElementById('modal-wrapper');
+            if (event.target == modal) closeModal();
+        }
+
+        initPage();
+    </script>
+</body>
+
+</html>

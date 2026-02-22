@@ -122,11 +122,11 @@
          * Load Mock Academic Data
          */
         function loadAcademicData() {
-            // 1. Set Student ID from localStorage
+            // Set Student ID from localStorage
             const userid = localStorage.getItem("userid") || "Not Logged In";
             document.getElementById("display-userid").innerText = userid;
 
-            // 2. Mock Course Data
+            // TODO Mock Course Data
             const courses = [
                 { code: "COMP2090SEF", title: "Data Structures & Algorithms", credit: 5, grade: "A" },
                 { code: "COMP1010SEF", title: "Introduction to Programming", credit: 5, grade: "A-" },
@@ -155,6 +155,7 @@
 
         // Initialize on load
         window.onload = loadAcademicData;
+
     </script>
 </body>
 </html>
