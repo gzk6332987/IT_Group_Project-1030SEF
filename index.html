@@ -99,22 +99,18 @@
     </div>
 
     <script>
-        /**
-         * Authentication Check Logic
-         * Executed after DOM is parsed to ensure 'login-detail' exists.
-         */
         const is_login = isLogin(); // Function defined in src/main.js
         const statusElement = document.getElementById("login-detail");
 
         if (is_login === false || is_login === null) {
             // User is not authenticated
             statusElement.innerText = "Guest (Logged Out)";
-            statusElement.style.color = "#dc3545"; // Red for logged out
+            statusElement.style.color = "#dc3545"; // red for log out
         } else {
             // User is authenticated
             const userId = localStorage.getItem("userid") || "User";
             statusElement.innerText = "Logged in as " + userId + ".";
-            statusElement.style.color = "#28a745"; // Green for logged in
+            statusElement.style.color = "#28a745"; // green for log in
         }
     </script>
 </body>

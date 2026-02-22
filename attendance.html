@@ -4,47 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Record</title>
+    <title>Attendance Record - SMS</title>
     <link rel="stylesheet" href="src/style.css">
+    <style>
+        /* Modern Card UI */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            font-variant: small-caps;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #fafafa;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .value {
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Buttons Styling */
+        .button-group {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+
+        .btn-outline:hover {
+            background-color: #f8f9fa;
+            border-color: #bbb;
+        }
+
+        #status-msg {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+    </style>
+
+    <script src="src/main.js"></script>
+    <script>
+        /**
+         * Initialize page data on load
+         */
+        async function initPage() {
+            // 1. Get and Display Time
+            document.getElementById("current-time").innerText = getCurrentFormattedTime();
+
+            // 2. Get and Display IP
+            const user_ip = await getIP();
+            document.getElementById("user-ip-display").innerText = user_ip;
+
+            // 3. Check Login Status
+            const userid = localStorage.getItem("userid");
+            const userDisplay = document.getElementById("user-id");
+            const attendBtn = document.getElementById("attend-btn");
+
+            if (userid) {
+                userDisplay.innerHTML = `<span style="color: #28a745; font-weight:bold;">${userid}</span>`;
+                attendBtn.disabled = false;
+            } else {
+                userDisplay.innerHTML = `<span style="color: #dc3545;">Not Logged In</span> <a href="login.html" style="font-size:12px; margin-left:5px;">Login Now</a>`;
+                attendBtn.disabled = true;
+                attendBtn.title = "Please login first";
+            }
+        }
+
+        /**
+         * Action when clicking "Take Attendance"
+         */
+        function handleAttendance() {
+            const msg = document.getElementById("status-msg");
+            const time = getCurrentFormattedTime();
+            const ip = document.getElementById("user-ip-display").innerText;
+
+            // Logic to save record (optional: push to a list in localStorage)
+            console.log(`Attendance recorded for ${localStorage.getItem("userid")} at ${time}`);
+
+            msg.innerHTML = `<span style="color: #28a745;">✔ Attendance Recorded Successfully!</span>`;
+
+            // Disable button to prevent double clicking
+            document.getElementById("attend-btn").disabled = true;
+            document.getElementById("attend-btn").innerText = "Submitted";
+        }
+
+        // Run when window loads
+        window.onload = initPage;
+    </script>
 </head>
 
 <body>
-    <h1>Attendance Record</h1>
-    <!-- show current info -->
-    <div>Current user ID: <span id="user-id"> <span style="color: red">you do not login!</span> <a href="login.html">Click me to login</a></span></div>
-    <div>Current time: <span id="current-time">WAIT FOR JavaScript Loaded...</span></div>
-    <div>Current IP: <span id="user-ip-display">WAIT FOR JavaScript Loaded...</span></div>
+    <div class="container">
+        <h1>Attendance Portal</h1>
 
-    <div>
-        <input type="button" value="Back to index" onclick="window.location.href='index.html'">
+        <div class="info-row">
+            <span class="label">Student ID:</span>
+            <span class="value" id="user-id">Loading...</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">IP Address:</span>
+            <span class="value" id="user-ip-display">Detecting...</span>
+        </div>
+
+        <div class="info-row">
+            <span class="label">Time:</span>
+            <span class="value" id="current-time">--/--/-- --:--:--</span>
+        </div>
+
+        <div id="status-msg"></div>
+
+        <div class="button-group">
+            <button id="attend-btn" class="btn btn-primary" onclick="handleAttendance()" disabled>
+                Take Attendance Now
+            </button>
+            <a href="index.html" class="btn btn-outline">Back to Dashboard</a>
+        </div>
     </div>
 </body>
-
-<head>
-    <script src="src/main.js"></script>
-
-    <script>
-        (async () => {
-            // 1. Get IP using the new CORS-friendly function
-            const user_ip = await getIP();
-            console.log("Your IP is:", user_ip);
-
-            // 2. Update UI
-            const ipElement = document.getElementById("user-ip-display");
-            if (ipElement) {
-                ipElement.innerText = user_ip;
-            }
-
-            // 3. Update Time
-            document.getElementById("current-time").innerText = getCurrentFormattedTime();
-
-            let userid = getUserId();
-            if (!(userid === null)) {
-                document.getElementById("user-id").innerHTML = `<span style='color: green;'>${userid}</span>`;
-            }
-        })();
-
-    </script>
-</head>
 
 </html>
