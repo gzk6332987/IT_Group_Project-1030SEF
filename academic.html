@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             width: 100%;
             max-width: 700px;
         }
@@ -34,8 +35,14 @@
             margin-bottom: 25px;
         }
 
-        .student-meta { color: #555; font-size: 0.9rem; }
-        .student-meta b { color: #000; }
+        .student-meta {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .student-meta b {
+            color: #000;
+        }
 
         table {
             width: 100%;
@@ -57,12 +64,21 @@
             font-size: 0.95rem;
         }
 
-        tr:hover { background-color: #fcfcfc; }
+        tr:hover {
+            background-color: #fcfcfc;
+        }
 
         /* Grade Color Coding */
-        .grade-a { color: #28a745; font-weight: bold; }
-        .grade-b { color: #007bff; font-weight: bold; }
-        
+        .grade-a {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .grade-b {
+            color: #007bff;
+            font-weight: bold;
+        }
+
         .gpa-banner {
             background: #333;
             color: white;
@@ -81,7 +97,9 @@
             transition: color 0.2s;
         }
 
-        .btn-back:hover { color: #000; }
+        .btn-back:hover {
+            color: #000;
+        }
     </style>
 </head>
 
@@ -122,24 +140,25 @@
          * Load Mock Academic Data
          */
         function loadAcademicData() {
-            // Set Student ID from localStorage
-            const userid = localStorage.getItem("userid") || "Not Logged In";
-            document.getElementById("display-userid").innerText = userid;
+            if (isLogin()) {
+                // Set Student ID from localStorage
+                const userid = localStorage.getItem("userid") || "Not Logged In";
+                document.getElementById("display-userid").innerText = userid;
 
-            // TODO Mock Course Data
-            const courses = [
-                { code: "COMP2090SEF", title: "Data Structures & Algorithms", credit: 5, grade: "A" },
-                { code: "COMP1010SEF", title: "Introduction to Programming", credit: 5, grade: "A-" },
-                { code: "MATH1020SEF", title: "Discrete Mathematics", credit: 3, grade: "B+" },
-                { code: "ENGL2030SEF", title: "University English", credit: 3, grade: "B" }
-            ];
+                // TODO Mock Course Data
+                const courses = [
+                    { code: "COMP2090SEF", title: "Data Structures & Algorithms", credit: 5, grade: "A" },
+                    { code: "COMP1010SEF", title: "Introduction to Programming", credit: 5, grade: "A-" },
+                    { code: "MATH1020SEF", title: "Discrete Mathematics", credit: 3, grade: "B+" },
+                    { code: "ENGL2030SEF", title: "University English", credit: 3, grade: "B" }
+                ];
 
-            const tbody = document.getElementById("grades-body");
-            let rows = "";
+                const tbody = document.getElementById("grades-body");
+                let rows = "";
 
-            courses.forEach(c => {
-                const gradeClass = c.grade.startsWith('A') ? 'grade-a' : 'grade-b';
-                rows += `
+                courses.forEach(c => {
+                    const gradeClass = c.grade.startsWith('A') ? 'grade-a' : 'grade-b';
+                    rows += `
                     <tr>
                         <td>${c.code}</td>
                         <td>${c.title}</td>
@@ -147,15 +166,21 @@
                         <td class="${gradeClass}">${c.grade}</td>
                     </tr>
                 `;
-            });
+                });
 
-            tbody.innerHTML = rows;
-            document.getElementById("gpa-value").innerText = "3.72"; // Mock GPA
-        }
+                tbody.innerHTML = rows;
+                document.getElementById("gpa-value").innerText = "3.72"; // Mock GPA
+            } else {
+                alert("Please login first to see your academic result!");
+                document.getElementById("display-userid").innerHTML = '<span style="color: red;">You are logged out!</span>';
+            }
+        } 
+
 
         // Initialize on load
         window.onload = loadAcademicData;
 
     </script>
 </body>
+
 </html>
