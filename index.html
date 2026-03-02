@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Student Management System</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='src/style.css'>
-    
+
     <!-- External Logic Script -->
     <script src='src/main.js'></script>
 
     <style>
         /* Modern reset and centering */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.6; 
-            padding: 20px; 
-            max-width: 900px; 
-            margin: 0 auto; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
             background-color: #f4f7f6;
+            background: url('markdown_resource/uniaccess_logo.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
         }
-        
+
+        .blur-overlay {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 60%;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+        }
+
         h1 {
             text-align: center;
             padding: 1.5rem;
@@ -66,53 +85,60 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        #login-detail { 
-            font-weight: bold; 
-            color: #007bff; 
+        #login-detail {
+            font-weight: bold;
+            color: #007bff;
         }
 
-        h2 { border-bottom: 2px solid #333; display: inline-block; padding-bottom: 5px; }
+        h2 {
+            border-bottom: 2px solid #333;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Student Management System</h1>
+    <div class="blur-overlay">
+        <h1>Student Management System</h1>
 
-    <section>
-        <h2 style="display: block; text-align: center;">Navigation Menu</h2>
-        <ul class="nav-container">
-            <li class="nav-item"><a href="login.html">Login</a></li>
-            <li class="nav-item"><a href="logout.html">Logout</a></li>
-            <li class="nav-item"><a href="attendance.html">Attendance</a></li>
-            <li class="nav-item"><a href="academic.html">Academic</a></li>
-            <li class="nav-item"><a href="submission.html">Submission</a></li>
-            <li class="nav-item"><a href="README.md">README</a></li>
-        </ul>
-    </section>
+        <section>
+            <h2 style="display: block; text-align: center;">Navigation Menu</h2>
+            <ul class="nav-container">
+                <li class="nav-item"><a href="login.html">Login</a></li>
+                <li class="nav-item"><a href="logout.html">Logout</a></li>
+                <li class="nav-item"><a href="attendance.html">Attendance</a></li>
+                <li class="nav-item"><a href="academic.html">Academic</a></li>
+                <li class="nav-item"><a href="submission.html">Submission</a></li>
+                <li class="nav-item"><a href="README.md">README</a></li>
+            </ul>
+        </section>
 
-    <!-- Display area for user authentication state -->
-    <div class="status-box">
-        <span>System Status: </span>
-        <span id="login-detail">Initializing...</span>
+        <!-- Display area for user authentication state -->
+        <div class="status-box">
+            <span>System Status: </span>
+            <span id="login-detail">Initializing...</span>
+        </div>
+
+        <script>
+            const is_login = isLogin(); // Function defined in src/main.js
+            const statusElement = document.getElementById("login-detail");
+
+            if (is_login === false || is_login === null) {
+                // User is not authenticated
+                statusElement.innerText = "Guest (Logged Out)";
+                statusElement.style.color = "#dc3545"; // red for log out
+            } else {
+                // User is authenticated
+                const userId = localStorage.getItem("userid") || "User";
+                statusElement.innerText = "Logged in as " + userId + ".";
+                statusElement.style.color = "#28a745"; // green for log in
+            }
+        </script>
     </div>
-
-    <script>
-        const is_login = isLogin(); // Function defined in src/main.js
-        const statusElement = document.getElementById("login-detail");
-
-        if (is_login === false || is_login === null) {
-            // User is not authenticated
-            statusElement.innerText = "Guest (Logged Out)";
-            statusElement.style.color = "#dc3545"; // red for log out
-        } else {
-            // User is authenticated
-            const userId = localStorage.getItem("userid") || "User";
-            statusElement.innerText = "Logged in as " + userId + ".";
-            statusElement.style.color = "#28a745"; // green for log in
-        }
-    </script>
 </body>
+
 </html>
