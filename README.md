@@ -1,6 +1,6 @@
-# 🌐 IT Group Project - 1030SEF
+# IT Group Project - 1030SEF
 <p align="center">
-    <strong>UniAccess - A powerful student management system</strong>
+    <strong>UniAccess - A student management system</strong>
 </p>
 
 <p align="center">
@@ -12,11 +12,11 @@
 
 ---
 
-## 🎯 Project Objective
+## Project Objective
 
 The core mission of **1030SEF** is to bridge the gap between academic management and inclusive design. We have developed a high-performance web platform that centralizes essential student functions into one accessible interface.
 
-### ✨ Key Features
+### Key Features
 - **Unified Dashboard:** One-stop access to **Academic Results**, **Attendance tracking**, and **Homework submissions**.
 - **Secure Login System:** Robust authentication to ensure data privacy and student security.
 - **Inclusion-First (WCAG):** A modern Graphical User Interface (GUI) meticulously designed to meet **WCAG standards**, ensuring full support for users with disabilities.
@@ -24,7 +24,7 @@ The core mission of **1030SEF** is to bridge the gap between academic management
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ![HTML5](https://img.shields.io/badge/user_interface-html-orange)
 ![CSS3](https://img.shields.io/badge/decorate_language-css-yellow)
@@ -35,7 +35,7 @@ The core mission of **1030SEF** is to bridge the gap between academic management
 
 ---
 
-## 👥 Contributors (HKMU Team)
+## Contributors (HKMU Team)
 
 We are committed to delivering high-quality, inclusive software solutions.
 
@@ -51,7 +51,7 @@ We are committed to delivering high-quality, inclusive software solutions.
 
 ---
 
-## 🏗️ Technical Highlights
+## Technical Highlights
 
 - **WCAG Standards:** Implemented high contrast ratios, screen reader support, and keyboard-only navigation.
 - **Code Readability:** Every module includes inline documentation for "good readability and future maintenance" as per project requirements.
