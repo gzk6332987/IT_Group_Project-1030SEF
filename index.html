@@ -108,8 +108,8 @@
         <section>
             <h2 style="display: block; text-align: center;">Navigation Menu</h2>
             <ul class="nav-container">
-                <li class="nav-item"><a href="login.html">Login</a></li>
-                <li class="nav-item"><a href="logout.html" onclick="return confirm('Logout now?');">Logout</a></li>
+                <li class="nav-item" id="login-link"><a href="login.html">Login</a></li>
+                <li class="nav-item" id="logout-link"><a href="logout.html" onclick="return confirm('Logout now?');">Logout</a></li>
                 <li class="nav-item"><a href="attendance.html">Attendance</a></li>
                 <li class="nav-item"><a href="academic.html">Academic</a></li>
                 <li class="nav-item"><a href="submission.html">Submission</a></li>
@@ -121,28 +121,27 @@
         <div class="status-box">
             <span>System Status: </span>
             <span id="login-detail">Initializing...</span>
-        </div>
+            </div>
 
-        <script>
-            const is_login = isLogin(); // Function defined in src/main.js
-            const statusElement = document.getElementById("login-detail");
+            <script>
+            const statusElement = document.getElementById("login-detail"); // corrected ID
+            const userId = localStorage.getItem("userid");
+            const is_login = !!userId; // true if userid exists
 
-            if (is_login === false || is_login === null) {
+            if (!is_login || userId === null || userId === "") {
                 // User is not authenticated
                 statusElement.innerText = "Guest (Logged Out)";
                 statusElement.style.color = "#dc3545"; // red for log out
+                document.getElementById("logout-link").style.display = "none"; // hide logout
+                document.getElementById("login-link").style.display = "block"; // show login
             } else {
                 // User is authenticated
-                const userId = localStorage.getItem("userid") || "User";
-                if (userId == null) {
-                    // User is not authenticated
-                    statusElement.innerText = "Guest (Logged Out)";
-                    statusElement.style.color = "#dc3545"; // red for log out
-                }
                 statusElement.innerText = "Logged in as " + userId + ".";
                 statusElement.style.color = "#28a745"; // green for log in
+                document.getElementById("logout-link").style.display = "block"; // show logout
+                document.getElementById("login-link").style.display = "none"; // hide login
             }
-        </script>
+            </script>
     </div>
 </body>
 
