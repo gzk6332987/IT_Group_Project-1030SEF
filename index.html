@@ -126,7 +126,7 @@
             <script>
             const statusElement = document.getElementById("login-detail"); // corrected ID
             const userId = localStorage.getItem("userid");
-            const is_login = !!userId; // true if userid exists
+            const is_login = isLogin(); // Call the function to check login status
 
             if (!is_login || userId === null || userId === "") {
                 // User is not authenticated
