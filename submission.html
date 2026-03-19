@@ -223,7 +223,7 @@
 
         <!-- Add more assignment -->
         <div style="width: 100%; display: flex; justify-content: center; align-items: center;" class="add-assignment-box">
-            <div style="margin: 10px 15px; padding: 10px; border-radius: 10px; background-color: #9df181;" class="add-assignment-container">
+            <div style="margin: 10px 15px; padding: 10px; border-radius: 10px; background-color: #9df181;" class="add-assignment-container" onclick="addAssignment()">
                 <span>Add more assignment...</span>
             </div>
         </div>
@@ -294,10 +294,15 @@
             closeModal();
         }
 
-        // 點擊遮罩層外部關閉彈窗
         window.onclick = function (event) {
             const modal = document.getElementById('modal-wrapper');
             if (event.target == modal) closeModal();
+        }
+
+        // Function for add add-assignment
+        function addAssignment() {
+            let desc = window.prompt("Enter the assignment description here");
+            document.getElementById("homework-list").innerHTML += `<li onclick="openModal('${desc}')">${desc}</li>`;
         }
 
         initPage();

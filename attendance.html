@@ -141,18 +141,42 @@
          * Action when clicking "Take Attendance"
          */
         function handleAttendance() {
+            // Initialize local storage record list
+            if (localStorage.getItem("attendance_record") === null) {
+                localStorage.setItem("attendance_record", "");
+            }
+
+
             const msg = document.getElementById("status-msg");
             const time = getCurrentFormattedTime();
             const ip = document.getElementById("user-ip-display").innerText;
 
+            let student_id = localStorage.getItem("userid");
+
+
             // Logic to save record (optional: push to a list in localStorage)
             console.log(`Attendance recorded for ${localStorage.getItem("userid")} at ${time}`);
+
+            let old_content = localStorage.getItem("attendance_record");
+            localStorage.setItem("attendance_record", old_content + `<li><span style="color: green;">${student_id}</span> => ${time}</li>`);
 
             msg.innerHTML = `<span style="color: #28a745;">✔ Attendance Recorded Successfully!</span>`;
 
             // Disable button to prevent double clicking
             document.getElementById("attend-btn").disabled = true;
             document.getElementById("attend-btn").innerText = "Submitted";
+        }
+
+        function writeAttendanceRecordAndDisplay() {
+            let time = getCurrentFormattedTime();
+            let student_id = localStorage.getItem("userid");
+            if (student_id == null) {
+                return
+            }
+
+            let records = localStorage.getItem("attendance_record");
+
+            document.getElementById("attendance-list").innerHTML = records;
         }
 
         // Run when window loads
@@ -182,10 +206,18 @@
         <div id="status-msg"></div>
 
         <div class="button-group">
-            <button id="attend-btn" class="btn btn-primary" onclick="handleAttendance()" disabled>
+            <button id="attend-btn" class="btn btn-primary" onclick="handleAttendance(); writeAttendanceRecordAndDisplay();" disabled>
                 Take Attendance Now
             </button>
             <a href="index.html" class="btn btn-outline">Back to Dashboard</a>
+        </div>
+
+        <br><br>
+
+        <div>
+            <span>Your attendance history record</span>
+            <ul id="attendance-list">
+            </ul>
         </div>
     </div>
 </body>
