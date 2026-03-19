@@ -7,7 +7,9 @@
     <title>Homework Submission System</title>
     <script src="src/main.js"></script>
     <style>
-
+        .add-assignment-box:hover .add-assignment-container {
+            background-color: #787878;
+        }
     </style>
     <style>
         /* @import url("src/style.css"); */
@@ -219,12 +221,17 @@
             <li onclick="openModal('Web Development Lab 5')">Web Development Lab 5</li>
         </ul>
 
+        <!-- Add more assignment -->
+        <div style="width: 100%; display: flex; justify-content: center; align-items: center;" class="add-assignment-box">
+            <div style="margin: 10px 15px; padding: 10px; border-radius: 10px; background-color: #9df181;" class="add-assignment-container">
+                <span>Add more assignment...</span>
+            </div>
+        </div>
         <div>
             <span style="font-size: x-small;"><a href="index.html">back to index</a></span>
         </div>
     </div>
 
-    <!-- --- 新增 Modal 結構 --- -->
     <div id="modal-wrapper" class="modal-overlay hidden">
         <div class="modal-content">
             <div id="modal-task-name" class="modal-header">Task Name</div>
