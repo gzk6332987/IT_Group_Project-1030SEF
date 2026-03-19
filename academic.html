@@ -139,41 +139,58 @@
         /**
          * Load Mock Academic Data
          */
+        function Course(course_code, course_title, course_credit, course_grade) {
+            this.course_code = course_code;
+            this.course_title = course_title;
+            this.course_credit = course_credit;
+            this.course_grade = course_grade;
+        }
+
+        function formatCourse(course, grade_class) {
+            return `<tr>
+                        <td>${course.course_code}</td>
+                        <td>${course.course_title}</td>
+                        <td>${course.course_credit}</td>
+                        <td class="${grade_class}">${course.course_grade}</td>
+                    </tr>`;
+        }
+
         function loadAcademicData() {
             if (isLogin()) {
                 // Set Student ID from localStorage
                 const userid = localStorage.getItem("userid") || "Not Logged In";
                 document.getElementById("display-userid").innerText = userid;
 
-                // TODO Mock Course Data
                 const courses = [
-                    { code: "COMP2090SEF", title: "Data Structures & Algorithms", credit: 5, grade: "A" },
-                    { code: "COMP1010SEF", title: "Introduction to Programming", credit: 5, grade: "A-" },
-                    { code: "MATH1020SEF", title: "Discrete Mathematics", credit: 3, grade: "B+" },
-                    { code: "ENGL2030SEF", title: "University English", credit: 3, grade: "B" }
+                    new Course("COMP2090SEF", "Data Structure & Algorithms", 5, "A"),
+                    new Course("MATH1020SEF", "Discrete Mathematics", 5, "A-"),
+                    new Course("ENGL2030SEF", "University English", 3, "B"),
                 ];
 
                 const tbody = document.getElementById("grades-body");
                 let rows = "";
 
-                courses.forEach(c => {
-                    const gradeClass = c.grade.startsWith('A') ? 'grade-a' : 'grade-b';
-                    rows += `
-                    <tr>
-                        <td>${c.code}</td>
-                        <td>${c.title}</td>
-                        <td>${c.credit}</td>
-                        <td class="${gradeClass}">${c.grade}</td>
-                    </tr>
-                `;
-                });
+                for (let i = 0; i < courses.length; i+=1) {
+                    const course = courses[i];
+
+                    let gradeClass = "";
+                    const grade = course.course_grade;
+                    
+                    if (grade === "A" || grade === "A-") {
+                        gradeClass = "grade-a";
+                    } else if (grade === "B" || grade === "B+") {
+                        gradeClass = "grade-b";
+                    }
+                    let html_display = formatCourse(course, gradeClass);
+                    rows += html_display; 
+                }
 
                 tbody.innerHTML = rows;
                 document.getElementById("gpa-value").innerText = "3.72"; // Mock GPA
             } else {
                 alert("Please login first to see your academic result!");
                 document.getElementById("display-userid").innerHTML = '<span style="color: red;">You are logged out!</span>';
-            }
+            }  
         } 
 
 
