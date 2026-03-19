@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logout</title>
-    <link rel="stylesheet" href="src/style.css">
-    <script>
-        setTimeout(() => {
-            localStorage.setItem("userid", null);
-            window.location.href = "login.html";
-        }, 3000);
-        
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout</title>
+  <link rel="stylesheet" href="src/style.css">
+  <script>
+    let countdown = 3; // seconds
+    const interval = setInterval(() => {
+      document.getElementById("message").textContent = 
+        `You will logout in ${countdown} seconds.`;
+      countdown--;
+
+      if (countdown < 0) {
+        clearInterval(interval); // stop the interval
+        localStorage.removeItem("userid"); // clear user id
+        window.location.href = "login.html"; // redirect
+      }
+    }, 1000); // run every 1000ms (1 second)
+  </script>
 </head>
 <body>
-    You will logout in 3 seconds.
+  <p id="message">You will logout in 3 seconds.</p>
 </body>
 </html>
